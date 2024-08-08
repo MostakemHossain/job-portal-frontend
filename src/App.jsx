@@ -1,10 +1,9 @@
-import { Button } from "./components/ui/button";
+import Navbar from "./components/Shared/Navbar";
 
 const App = () => {
   return (
     <div>
-      <h1>Hello</h1>
-      <Button>Hello</Button>
+      <Navbar />
     </div>
   );
 };
