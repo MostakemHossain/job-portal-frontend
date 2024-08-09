@@ -1,13 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 import App from './App.jsx'
-import './index.css'
 import { Toaster } from './components/ui/sonner.jsx'
+import './index.css'
+import { store } from './redux/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Toaster />
-    <App />
+
+    <Provider store={store}>
+      <Toaster />
+      <App />
+    </Provider>
 
   </React.StrictMode>,
 )

@@ -1,6 +1,10 @@
+import { setLoading } from "@/redux/authSlice";
 import { AUTH_API_ENDPOINT } from "@/utils/constants";
 import axios from "axios";
+import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import Eye and EyeOff icons
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -11,21 +15,33 @@ import { RadioGroup } from "../ui/radio-group";
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const { loading } = useSelector(store => store.auth);
+    const dispatch = useDispatch();
+    const [errorMessage, setErrorMessage] = useState(null); // State for error message
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
     const onSubmit = async (data) => {
         try {
+            dispatch(setLoading(true));
+            setErrorMessage(null); // Clear previous errors
+
             const response = await axios.post(`${AUTH_API_ENDPOINT}/login`, {
                 email: data.email,
                 password: data.password,
-                role: data.role
+                role: data.role,
             });
-            if (response.data.success) {
-                toast(response.data.message)
-                navigate("/")
 
+            if (response.data.success) {
+                toast(response.data.message);
+                navigate("/");
+            } else {
+                setErrorMessage(response.data.message || "An unexpected error occurred.");
             }
+
+            dispatch(setLoading(false));
         } catch (error) {
-            console.error(error.response?.data || error.message);
+            dispatch(setLoading(false));
+            setErrorMessage(error.response?.data?.message || "An unexpected error occurred.");
         }
     };
 
@@ -49,13 +65,20 @@ const Login = () => {
                     {errors.email && <p className="text-red-600">{errors.email.message}</p>}
                 </div>
 
-                <div className="my-2">
+                <div className="my-2 relative">
                     <Label>Password</Label>
                     <Input
-                        type="password"
+                        type={showPassword ? "text" : "password"} // Toggle between text and password
                         placeholder="********"
                         {...register("password", { required: "Password is required" })}
                     />
+                    <button
+                        type="button"
+                        className="absolute right-2 top-10 transform -translate-y-1/2"
+                        onClick={() => setShowPassword(prev => !prev)}
+                    >
+                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
                     {errors.password && <p className="text-red-600">{errors.password.message}</p>}
                 </div>
 
@@ -82,13 +105,26 @@ const Login = () => {
                             <Label htmlFor="r1">Recruiter</Label>
                         </div>
                     </RadioGroup>
-                    {errors.role && <p className="text-red-600">{errors.role.message}</p>}
+                    {errors.role && <p className="text-red-600 font-bold text-center">{errors.role.message}</p>}
                 </div>
 
-                <Button type="submit" className="w-full my-4">Login</Button>
+                {errorMessage && <p className="text-red-600 my-2">{errorMessage}</p>}
+
+                {loading ? (
+                    <Button className="w-full my-4">
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading...
+                    </Button>
+                ) : (
+                    <Button type="submit" className="w-full my-4">
+                        Login
+                    </Button>
+                )}
 
                 <span className="flex items-center justify-center gap-2">
-                    Don&apos;t have an account? <Link className="text-blue-600 underline font-bold" to={"/sign-up"}>Sign up</Link>
+                    Don&apos;t have an account?{" "}
+                    <Link className="text-blue-600 underline font-bold" to={"/sign-up"}>
+                        Sign up
+                    </Link>
                 </span>
             </form>
         </div>

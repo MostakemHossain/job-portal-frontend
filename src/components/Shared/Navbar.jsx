@@ -95,8 +95,12 @@ const Navbar = () => {
                         <li className="cursor-pointer py-2">Browse</li>
                         {!user ? (
                             <div className="flex flex-col gap-3 mt-4">
-                                <Button variant="outline">Login</Button>
-                                <Button className="bg-[#6A38C2] hover:bg-[#34038a]">Sign Up</Button>
+                                <Link to={"/login"}>
+                                    <Button variant="outline">Login</Button>
+                                </Link>
+                                <Link to={"/sign-up"}>
+                                    <Button className="bg-[#6A38C2] hover:bg-[#34038a]">Sign Up</Button>
+                                </Link>
                             </div>
                         ) : (
                             <Popover>
