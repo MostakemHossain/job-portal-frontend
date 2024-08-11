@@ -25,7 +25,7 @@ const LatestJobCard = () => {
                     Part Time
                 </Badge>
                 <Badge className="bg-purple-50 text-[#7209b7] font-semibold px-3 py-1 rounded-full" variant="ghost">
-                    24 LPA
+                    24 LPA 
                 </Badge>
             </div>
         </div>
