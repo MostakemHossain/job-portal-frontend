@@ -26,9 +26,21 @@ const Navbar = () => {
             </div>
             <div className="hidden md:flex items-center gap-12">
                 <ul className="flex items-center gap-5 font-medium">
-                    <li className="cursor-pointer">Home</li>
-                    <li className="cursor-pointer">Jobs</li>
-                    <li className="cursor-pointer">Browse</li>
+                    <li className="cursor-pointer">
+                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/"}>
+                            home
+                        </Link>
+                    </li>
+                    <li className="cursor-pointer">
+                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/jobs"}>
+                            Jobs
+                        </Link>
+                    </li>
+                    <li className="cursor-pointer">
+                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/browse"}>
+                            Browse
+                        </Link>
+                    </li>
                 </ul>
                 {!user ? (
                     <div className="flex items-center gap-3">
