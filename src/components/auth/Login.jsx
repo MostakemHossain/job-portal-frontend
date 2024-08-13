@@ -1,4 +1,4 @@
-import { setLoading } from "@/redux/authSlice";
+import { setLoading, setUser } from "@/redux/authSlice";
 import { AUTH_API_ENDPOINT } from "@/utils/constants";
 import axios from "axios";
 import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import Eye and EyeOff icons
@@ -17,21 +17,24 @@ const Login = () => {
     const navigate = useNavigate();
     const { loading } = useSelector(store => store.auth);
     const dispatch = useDispatch();
-    const [errorMessage, setErrorMessage] = useState(null); // State for error message
-    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+    const [errorMessage, setErrorMessage] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data) => {
         try {
             dispatch(setLoading(true));
-            setErrorMessage(null); // Clear previous errors
+            setErrorMessage(null);
 
             const response = await axios.post(`${AUTH_API_ENDPOINT}/login`, {
                 email: data.email,
                 password: data.password,
                 role: data.role,
-            });
+            },
+            );
+
 
             if (response.data.success) {
+                dispatch(setUser(response.data.data.user))
                 toast(response.data.message);
                 navigate("/");
             } else {
@@ -40,6 +43,7 @@ const Login = () => {
 
             dispatch(setLoading(false));
         } catch (error) {
+            console.log(error)
             dispatch(setLoading(false));
             setErrorMessage(error.response?.data?.message || "An unexpected error occurred.");
         }

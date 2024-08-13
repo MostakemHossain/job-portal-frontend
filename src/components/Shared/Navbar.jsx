@@ -6,11 +6,12 @@ import {
 } from "@/components/ui/popover";
 import { LogOut, User2 } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
-    const user = false;
+    const { user } = useSelector(store => store.auth)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -70,7 +71,9 @@ const Navbar = () => {
                             <div className="flex flex-col text-gray-600 mt-5">
                                 <div className="flex w-fit items-center gap-2 cursor-pointer">
                                     <User2 />
-                                    <Button variant="link">Profile</Button>
+                                    <Button variant="link" ><Link to={"/profile"}>
+                                        Profile
+                                    </Link></Button>
                                 </div>
                                 <div className="flex w-fit items-center gap-2 cursor-pointer">
                                     <LogOut />
