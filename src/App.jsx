@@ -2,9 +2,10 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Browse from "./components/Browse";
 import Home from "./components/Home";
 import Jobs from "./components/Jobs";
+import JobsDescription from "./components/JobsDescription";
+import Profile from "./components/Profile";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
-import Profile from "./components/Profile";
 const router = createBrowserRouter([
   {
     path: '/',
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/jobs',
     element: <Jobs />
+  },
+  {
+    path: '/description/:id',
+    element: <JobsDescription />
   },
   {
     path: '/browse',
