@@ -4,19 +4,30 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import { authKey } from "@/constants/authKey";
+import { setUser } from "@/redux/authSlice";
+import { removeFormLocalStorage } from "@/utils/local-storage";
 import { LogOut, User2 } from "lucide-react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
     const { user } = useSelector(store => store.auth)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const dispatch = useDispatch();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+    const handleLogout = () => {
+       
+        dispatch(setUser(null))
+        removeFormLocalStorage(authKey);
+
+
+    }
 
     return (
         <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center mx-auto max-w-7xl h-16">
@@ -77,7 +88,7 @@ const Navbar = () => {
                                 </div>
                                 <div className="flex w-fit items-center gap-2 cursor-pointer">
                                     <LogOut />
-                                    <Button variant="link">Logout</Button>
+                                    <Button onClick={handleLogout} variant="link">Logout</Button>
                                 </div>
                             </div>
                         </PopoverContent>
@@ -137,11 +148,13 @@ const Navbar = () => {
                                     <div className="flex flex-col text-gray-600 mt-5">
                                         <div className="flex w-fit items-center gap-2 cursor-pointer">
                                             <User2 />
-                                            <Button variant="link">Profile</Button>
+                                            <Button variant="link">
+                                                <Link to={"/profile"}>Profile</Link>
+                                            </Button>
                                         </div>
                                         <div className="flex w-fit items-center gap-2 cursor-pointer">
                                             <LogOut />
-                                            <Button variant="link">Logout</Button>
+                                            <Button onClick={handleLogout} variant="link">Logout</Button>
                                         </div>
                                     </div>
                                 </PopoverContent>
