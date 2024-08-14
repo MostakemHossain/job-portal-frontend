@@ -1,4 +1,5 @@
 import { authKey } from "@/constants/authKey";
+import { setUser } from "@/redux/authSlice";
 import { USER_API_ENDPOINT } from "@/utils/constants";
 import { getFormLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
@@ -60,6 +61,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
                 },
                 withCredentials: true
             });
+            dispatch(setUser(result.data.data))
             toast(result.data.message)
         } catch (error) {
             console.log(error.message);
