@@ -1,5 +1,7 @@
+import { authKey } from "@/constants/authKey";
 import { setLoading, setUser } from "@/redux/authSlice";
 import { AUTH_API_ENDPOINT } from "@/utils/constants";
+import { setToLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import Eye and EyeOff icons
 import { useState } from "react";
@@ -31,10 +33,12 @@ const Login = () => {
                 role: data.role,
             },
             );
+            console.log(response.data.data)
 
 
             if (response.data.success) {
-                dispatch(setUser(response.data.data.user))
+                setToLocalStorage(authKey, response.data.data.accessToken);
+                dispatch(setUser(response.data.data))
                 toast(response.data.message);
                 navigate("/");
             } else {
