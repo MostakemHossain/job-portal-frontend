@@ -10,21 +10,23 @@ import { removeFormLocalStorage } from "@/utils/local-storage";
 import { LogOut, User2 } from "lucide-react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 
 const Navbar = () => {
     const { user } = useSelector(store => store.auth)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
     const handleLogout = () => {
-       
+
         dispatch(setUser(null))
         removeFormLocalStorage(authKey);
+        navigate("/")
 
 
     }
@@ -66,17 +68,17 @@ const Navbar = () => {
                     <Popover>
                         <PopoverTrigger asChild>
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" />
+                                <AvatarImage src={user?.profile?.profilePhoto} />
                             </Avatar>
                         </PopoverTrigger>
                         <PopoverContent className="w-80">
                             <div className="flex items-center gap-4">
                                 <Avatar>
-                                    <AvatarImage src="https://github.com/shadcn.png" />
+                                    <AvatarImage src={user?.profile?.profilePhoto} />
                                 </Avatar>
                                 <div>
-                                    <h4 className="font-medium">Mostakem Hossain</h4>
-                                    <p className="text-sm text-muted-foreground">I am a full stack developer</p>
+                                    <h4 className="font-medium">{user?.fullName}</h4>
+                                    <p className="text-sm text-muted-foreground">{user?.bio}</p>
                                 </div>
                             </div>
                             <div className="flex flex-col text-gray-600 mt-5">

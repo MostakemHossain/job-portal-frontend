@@ -33,12 +33,12 @@ const Login = () => {
                 role: data.role,
             },
             );
-            console.log(response.data.data)
+
 
 
             if (response.data.success) {
                 setToLocalStorage(authKey, response.data.data.accessToken);
-                dispatch(setUser(response.data.data))
+                dispatch(setUser(response.data.data.user))
                 toast(response.data.message);
                 navigate("/");
             } else {

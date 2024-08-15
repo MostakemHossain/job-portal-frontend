@@ -18,12 +18,12 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const dispatch = useDispatch();
 
     const [input, setInput] = useState({
-        fullName: user?.user?.fullName || "",
-        email: user?.user?.email || "",
-        phoneNumber: user?.user?.phoneNumber || "",
-        bio: user?.user?.profile?.bio || "",
-        skills: user?.user?.profile?.skills?.join(", ") || "",
-        file: user?.user?.profile?.resume || "",
+        fullName: user?.fullName || "",
+        email: user?.email || "",
+        phoneNumber: user?.phoneNumber || "",
+        bio: user?.profile?.bio || "",
+        skills: user?.profile?.skills?.join(", ") || "",
+        file:user?.profile?.resume || "",
     });
     const token = getFormLocalStorage(authKey);
 
