@@ -8,15 +8,16 @@ const JobsDescription = () => {
     const isApplied = false;
     const params = useParams();
     const jobId = params.id;
-    console.log(jobId)
     useGetSingle(jobId);
     const { singleJob } = useSelector(store => store.job);
+
+    const formattedDate = singleJob?.createdAt ? new Date(singleJob.createdAt).toISOString().split("T")[0] : "N/A";
 
     return (
         <div className="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
                 <div className="flex-1">
-                    <h1 className="font-bold text-2xl sm:text-3xl text-gray-800">{singleJob?.description}</h1>
+                    <h1 className="font-bold text-2xl sm:text-3xl text-gray-800">{singleJob?.title}</h1>
                     <div className="flex flex-wrap items-center gap-2 mt-4">
                         <Badge className="bg-blue-50 text-blue-600 font-semibold px-3 py-1 rounded-full" variant="ghost">
                             {singleJob?.position} positions
@@ -46,7 +47,7 @@ const JobsDescription = () => {
                 <h1 className="font-semibold">Salary: <span className="font-normal pl-2">${singleJob?.salary}</span></h1>
                 <h1 className="font-semibold">Total Applicants: <span className="font-normal pl-2">{singleJob?.applications?.length}</span></h1>
                 <h1 className="font-semibold">
-                    Posted Date: <span className="font-normal pl-2">{new Date(singleJob?.createdAt).toISOString().split("T")[0]}</span>
+                    Posted Date: <span className="font-normal pl-2">{formattedDate}</span>
                 </h1>
 
             </div>
