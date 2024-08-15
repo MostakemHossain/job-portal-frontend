@@ -1,3 +1,4 @@
+import { dateAgoCalculation } from "@/utils/dateAgeCalculation"
 import { Bookmark } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { Avatar, AvatarImage } from "./ui/avatar"
@@ -7,10 +8,12 @@ import { Button } from "./ui/button"
 const Job = ({ job }) => {
     const navigate = useNavigate();
 
+
+
     return (
         <div className="p-5 rounded-md shadow-xl bg-white border border-y-gray-100">
             <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-600">2 days ago</p>
+                <p className="text-sm text-gray-600">{dateAgoCalculation(job?.createdAt) === 0 ? "Today" : `${dateAgoCalculation(job?.createdAt)}`} days ago</p>
                 <Button variant="outline" size="icon" className="rounded-full"> <Bookmark /></Button>
 
             </div>
