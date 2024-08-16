@@ -21,9 +21,9 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
         fullName: user?.fullName || "",
         email: user?.email || "",
         phoneNumber: user?.phoneNumber || "",
-        bio: user?.profile?.bio || "",
-        skills: user?.profile?.skills?.join(", ") || "",
-        file:user?.profile?.resume || "",
+        bio: user?.bio || "",
+        skills: user?.skills?.join(", ") || "",
+        file: user?.profile?.resume || "",
     });
     const token = getFormLocalStorage(authKey);
 
