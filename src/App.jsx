@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Jobs from "./components/Jobs";
 import JobsDescription from "./components/JobsDescription";
 import Profile from "./components/Profile";
+import Companies from "./components/admin/Companies";
 import Login from "./components/auth/Login";
 import SignUp from "./components/auth/SignUp";
 const router = createBrowserRouter([
@@ -35,6 +36,13 @@ const router = createBrowserRouter([
     path: '/profile',
     element: <Profile />
   },
+
+  // admin
+  {
+    path: '/admin/companies',
+    element: <Companies />
+  },
+
 ])
 
 const App = () => {

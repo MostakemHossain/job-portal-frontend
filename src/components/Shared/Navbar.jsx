@@ -40,21 +40,45 @@ const Navbar = () => {
             </div>
             <div className="hidden md:flex items-center gap-12">
                 <ul className="flex items-center gap-5 font-medium">
-                    <li className="cursor-pointer">
-                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/"}>
-                            home
-                        </Link>
-                    </li>
-                    <li className="cursor-pointer">
-                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/jobs"}>
-                            Jobs
-                        </Link>
-                    </li>
-                    <li className="cursor-pointer">
-                        <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/browse"}>
-                            Browse
-                        </Link>
-                    </li>
+
+
+                    {
+                        user && user.role === "recruiter" ? (
+                            <>
+                                <li className="cursor-pointer">
+                                    <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/admin/companies"}>
+                                        Companies
+                                    </Link>
+                                </li>
+                                <li className="cursor-pointer">
+                                    <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/admin/jobs"}>
+                                        Jobs
+                                    </Link>
+                                </li>
+
+                            </>
+                        ) : (
+                            <>
+                                <li className="cursor-pointer">
+                                    <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/"}>
+                                        home
+                                    </Link>
+                                </li>
+                                <li className="cursor-pointer">
+                                    <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/jobs"}>
+                                        Jobs
+                                    </Link>
+                                </li>
+                                <li className="cursor-pointer">
+                                    <Link className="hover:text-[#6A38C2] hover:font-bold hover:scale-105" to={"/browse"}>
+                                        Browse
+                                    </Link>
+                                </li>
+                            </>
+
+                        )
+                    }
+
                 </ul>
                 {!user ? (
                     <div className="flex items-center gap-3">
@@ -82,12 +106,16 @@ const Navbar = () => {
                                 </div>
                             </div>
                             <div className="flex flex-col text-gray-600 mt-5">
-                                <div className="flex w-fit items-center gap-2 cursor-pointer">
-                                    <User2 />
-                                    <Button variant="link" ><Link to={"/profile"}>
-                                        Profile
-                                    </Link></Button>
-                                </div>
+                                {
+                                    user && user.role === "student" && (
+                                        <div className="flex w-fit items-center gap-2 cursor-pointer">
+                                            <User2 />
+                                            <Button variant="link" ><Link to={"/profile"}>
+                                                Profile
+                                            </Link></Button>
+                                        </div>
+                                    )
+                                }
                                 <div className="flex w-fit items-center gap-2 cursor-pointer">
                                     <LogOut />
                                     <Button onClick={handleLogout} variant="link">Logout</Button>
