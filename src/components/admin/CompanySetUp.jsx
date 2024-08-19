@@ -1,16 +1,21 @@
 import { authKey } from "@/constants/authKey";
+import { setSingleCompany } from "@/redux/companySlice";
 import { COMPANY_API_ENDPOINT } from "@/utils/constants";
 import { getFormLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "sonner";
 import Navbar from "../Shared/Navbar";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 const CompanySetUp = () => {
+
+    const dispatch = useDispatch();
     const [input, setInput] = useState({
         name: "",
         description: "",
@@ -32,6 +37,9 @@ const CompanySetUp = () => {
     };
     const params = useParams();
 
+    const { singleCompany } = useSelector(store => store.company);
+
+
     const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -46,7 +54,7 @@ const CompanySetUp = () => {
             setLoading(true)
             const res = await axios.put(
                 `${COMPANY_API_ENDPOINT}/${params.id}`,
-                 formData ,
+                formData,
                 {
                     headers: {
                         "Content-Type": "multipart/form-data",
@@ -54,17 +62,32 @@ const CompanySetUp = () => {
                     }
                 }
             );
-            console.log(res)
+            if (res?.data?.success) {
 
+                dispatch(setSingleCompany(res?.data?.data));
+                toast.success(res?.data?.message);
+                navigate(`/admin/companies`);
 
+            }
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.response.data.message)
 
         } finally {
             setLoading(false)
         }
     };
+
+    useEffect(() => {
+        setInput({
+            name: singleCompany?.name || "",
+            description: singleCompany?.description || "",
+            website: singleCompany?.website || "",
+            location: singleCompany?.location || "",
+            file: singleCompany?.file || "",
+        });
+    }, [singleCompany]);
+
 
 
     return (
