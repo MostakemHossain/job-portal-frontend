@@ -1,9 +1,11 @@
+import { useNavigate } from "react-router-dom"
 import Navbar from "../Shared/Navbar"
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import CompaniesTable from "./CompaniesTable"
 
 const Companies = () => {
+    const navigate = useNavigate();
     return (
         <div>
             <Navbar />
@@ -13,13 +15,13 @@ const Companies = () => {
                         className="w-fit"
                         placeholder="filter by name"
                     />
-                    <Button>New Company</Button>
+                    <Button onClick={() => navigate("/admin/companies/create")}>New Company</Button>
 
                 </div>
                 <CompaniesTable />
 
             </div>
-        </div>
+        </div >
     )
 }
 
