@@ -66,7 +66,7 @@ const CompanySetUp = () => {
 
                 dispatch(setSingleCompany(res?.data?.data));
                 toast.success(res?.data?.message);
-                navigate(`/admin/companies`);
+                // navigate(`/admin/companies`);
 
             }
 

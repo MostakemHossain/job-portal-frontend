@@ -1,3 +1,4 @@
+import useGetAllCompanies from "@/hooks/useGEtAllCompanies"
 import { useNavigate } from "react-router-dom"
 import Navbar from "../Shared/Navbar"
 import { Button } from "../ui/button"
@@ -5,6 +6,7 @@ import { Input } from "../ui/input"
 import CompaniesTable from "./CompaniesTable"
 
 const Companies = () => {
+    useGetAllCompanies();
     const navigate = useNavigate();
     return (
         <div>
