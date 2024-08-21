@@ -3,11 +3,13 @@ import { PopoverTrigger } from "@radix-ui/react-popover"
 import { Edit2, MoreHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import { Avatar } from "../ui/avatar"
 import { Popover, PopoverContent } from "../ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader } from "../ui/table"
 
 const CompaniesTable = () => {
+    const navigate = useNavigate();
 
     const { companies, searchCompanyByText } = useSelector(state => state.company);
     const [filterCompany, setFilterCompany] = useState(companies);
@@ -57,7 +59,7 @@ const CompaniesTable = () => {
                                     <Popover>
                                         <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                                         <PopoverContent className="w-32">
-                                            <div className="flex items-center justify-center cursor-pointer gap-2 w-fit">
+                                            <div onClick={() => navigate(`/admin/companies/${company._id}`)} className="flex items-center justify-center cursor-pointer gap-2 w-fit">
                                                 <Edit2 className="w-fit" />
                                                 <span>Edit</span>
                                             </div>

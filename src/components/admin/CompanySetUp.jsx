@@ -1,4 +1,5 @@
 import { authKey } from "@/constants/authKey";
+import useGetSingleCompanyByID from "@/hooks/useGetSingleCompanyById";
 import { setSingleCompany } from "@/redux/companySlice";
 import { COMPANY_API_ENDPOINT } from "@/utils/constants";
 import { getFormLocalStorage } from "@/utils/local-storage";
@@ -14,6 +15,8 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 
 const CompanySetUp = () => {
+    const params = useParams();
+    useGetSingleCompanyByID(params.id)
 
     const dispatch = useDispatch();
     const [input, setInput] = useState({
@@ -35,7 +38,6 @@ const CompanySetUp = () => {
     const changeFileHandler = (e) => {
         setInput({ ...input, file: e.target.files[0] });
     };
-    const params = useParams();
 
     const { singleCompany } = useSelector(store => store.company);
 
@@ -66,7 +68,7 @@ const CompanySetUp = () => {
 
                 dispatch(setSingleCompany(res?.data?.data));
                 toast.success(res?.data?.message);
-                // navigate(`/admin/companies`);
+                navigate(`/admin/companies`);
 
             }
 
