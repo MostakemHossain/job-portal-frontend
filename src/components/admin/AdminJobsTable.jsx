@@ -1,16 +1,18 @@
-import { PopoverTrigger } from "@radix-ui/react-popover"
-import { Edit2, MoreHorizontal } from "lucide-react"
+import useGetAllAdminJobs from "@/hooks/useGetAllAdminJobs"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Popover, PopoverContent } from "../ui/popover"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader } from "../ui/table"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { Edit2, MoreHorizontal } from "lucide-react"
 
 const AdminJobsTable = () => {
+    useGetAllAdminJobs();
     const navigate = useNavigate();
 
     const { allAdminJobs, searchJobByText } = useSelector(state => state.job);
     const [filterJob, setFilterJob] = useState(allAdminJobs);
+    console.log(allAdminJobs)
 
     useEffect(() => {
         const filteredCompany = filterJob.length >= 0 && filterJob.filter((job) => {
