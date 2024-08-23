@@ -33,6 +33,7 @@ const CompaniesTable = () => {
                 <TableHeader>
                     <TableHead>Logo</TableHead>
                     <TableHead>Name</TableHead>
+                    <TableHead>Location</TableHead>
                     <TableHead>Date</TableHead>
                     <TableHead className="text-right">Action</TableHead>
                 </TableHeader>
@@ -47,6 +48,10 @@ const CompaniesTable = () => {
                                 </TableCell>
                                 <TableCell>
                                     {company?.name}
+
+                                </TableCell>
+                                <TableCell>
+                                    {company?.location}
 
                                 </TableCell>
                                 <TableCell>
