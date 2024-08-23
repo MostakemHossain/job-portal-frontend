@@ -4,7 +4,7 @@ import { AUTH_API_ENDPOINT } from "@/utils/constants";
 import { setToLocalStorage } from "@/utils/local-storage";
 import axios from "axios";
 import { Eye, EyeOff, Loader2 } from "lucide-react"; // Import Eye and EyeOff icons
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,12 +17,13 @@ import { RadioGroup } from "../ui/radio-group";
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const { loading } = useSelector(store => store.auth);
+    const { loading, user } = useSelector(store => store.auth);
     const dispatch = useDispatch();
     const [errorMessage, setErrorMessage] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
 
     const onSubmit = async (data) => {
+
         try {
             dispatch(setLoading(true));
             setErrorMessage(null);
@@ -53,6 +54,12 @@ const Login = () => {
         }
     };
 
+    useEffect(() => {
+        if (user) {
+            navigate("/")
+        }
+
+    }, [])
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-50 p-4">
             <form

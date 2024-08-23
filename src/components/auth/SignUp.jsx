@@ -1,7 +1,8 @@
 import { USER_API_ENDPOINT } from "@/utils/constants";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
@@ -12,10 +13,11 @@ import { RadioGroup } from "../ui/radio-group";
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false); // Loading state
+    const [loading, setLoading] = useState(false);
+    const { user } = useSelector(store => store.auth)
 
     const onSubmit = async (data) => {
-        setLoading(true); // Set loading to true when submission starts
+        setLoading(true);
 
         const formData = new FormData();
         formData.append("fullName", data.fullName);
@@ -40,9 +42,16 @@ const SignUp = () => {
             console.error(error.response?.data || error.message);
             toast.error("An error occurred. Please try again.");
         } finally {
-            setLoading(false); // Set loading to false when submission ends
+            setLoading(false);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate("/")
+        }
+
+    }, [])
 
     return (
         <div className='flex items-center justify-center min-h-screen bg-gray-50 p-4'>
