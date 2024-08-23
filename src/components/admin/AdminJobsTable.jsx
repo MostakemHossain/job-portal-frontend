@@ -1,18 +1,17 @@
 import useGetAllAdminJobs from "@/hooks/useGetAllAdminJobs"
+import { Edit2, Eye, MoreHorizontal } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader } from "../ui/table"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
-import { Edit2, MoreHorizontal } from "lucide-react"
+import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader } from "../ui/table"
 
 const AdminJobsTable = () => {
     useGetAllAdminJobs();
     const navigate = useNavigate();
 
     const { allAdminJobs, searchJobByText } = useSelector(state => state.job);
-    const [filterJob, setFilterJob] = useState(allAdminJobs);
-    console.log(allAdminJobs)
+    const [filterJob, setFilterJob] = useState(allAdminJobs)
 
     useEffect(() => {
         const filteredCompany = filterJob.length >= 0 && filterJob.filter((job) => {
@@ -77,6 +76,10 @@ const AdminJobsTable = () => {
                                             <div onClick={() => navigate(`/admin/companies/${job._id}`)} className="flex items-center justify-center cursor-pointer gap-2 w-fit">
                                                 <Edit2 className="w-fit" />
                                                 <span>Edit</span>
+                                            </div>
+                                            <div onClick={() => navigate(`/admin/jobs/${job._id}/applicants`)} className="flex items-center justify-center cursor-pointer gap-2 w-fit mt-2">
+                                                <Eye className="w-fit" />
+                                                <span>Applicants</span>
                                             </div>
                                         </PopoverContent>
 

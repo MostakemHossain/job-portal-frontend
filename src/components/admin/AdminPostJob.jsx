@@ -67,7 +67,7 @@ const AdminPostJob = () => {
 
             if (res?.data?.success) {
 
-                // dispatch(setSingleCompany(res?.data?.data));
+                // dispatch(setAllAdminJob(res?.data?.data));
 
                 toast.success(res?.data?.message);
                 navigate(`/admin/jobs`);
