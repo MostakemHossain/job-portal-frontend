@@ -8,6 +8,7 @@ const authSlice=createSlice({
         allAdminJobs:[],
         searchJobByText:"",
         allAppliedJob:[],
+        searchedQuery:"",
     },
     reducers:{
         setJobs:(state,action)=>{
@@ -25,9 +26,12 @@ const authSlice=createSlice({
         setAllAppliedJob : (state, action) => {
             state.allAppliedJob = action.payload;
       },
+        setSearchedQuery : (state, action) => {
+            state.searchedQuery = action.payload;
+      },
         
         
     }
 })
-export const {setJobs,setSingleJob,setAllAdminJob,setSearchJobByText,setAllAppliedJob}= authSlice.actions;
+export const {setJobs,setSingleJob,setAllAdminJob,setSearchJobByText,setAllAppliedJob,setSearchedQuery}= authSlice.actions;
 export default authSlice.reducer

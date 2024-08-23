@@ -34,9 +34,9 @@ const Navbar = () => {
     return (
         <nav className="bg-white shadow-md px-6 py-4 flex justify-between items-center mx-auto max-w-7xl h-16">
             <div className="navbar-brand">
-                <h1 className="text-2xl font-bold">
+                <Link to={"/"}> <h1 className="text-2xl font-bold">
                     Career<span className="text-blue-500">Compass</span>
-                </h1>
+                </h1></Link>
             </div>
             <div className="hidden md:flex items-center gap-12">
                 <ul className="flex items-center gap-5 font-medium">
